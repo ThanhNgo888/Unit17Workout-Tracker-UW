@@ -6,9 +6,20 @@ const API = {
     return json[json.length - 1];
   },
   async addExercise(data) {
-    const id = location.search.split("=")[1];
+    console.log(data);
+    const res = await fetch("/api/workouts/", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
 
-    const res = await fetch("/api/workouts/" + id, {
+    const json = await res.json();
+
+    return json;
+  },
+  async removeExercise(id){
+    var data = {_id: id};
+    const res = await fetch("/api/workouts/remove", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
@@ -36,3 +47,4 @@ const API = {
     return json;
   },
 };
+module.exports=API;
